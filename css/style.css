@@ -1,0 +1,66 @@
+body {
+    margin: 5% 10%;
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+h1 {
+    color: #004191;
+    font-size: 2.5em;
+    height: 1.25em;
+}
+
+h1 img {
+    height: 100%;
+    vertical-align: text-bottom;
+}
+
+a:link, a:visited {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#menu {
+    width: 100%;
+    height: 75px;
+    display: table;
+}
+
+#menu ul {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+}
+
+#menu ul li table {
+    border-collapse: collapse;
+    float: left;
+    width: 24%;
+    min-width: 250px;
+    height: 100%;
+    line-height: 50px;
+    margin-right: 1%;
+}
+
+#menu ul li a {
+    border-width: thin;
+    border-style: none none solid none;
+    border-color: #004191;
+    color: #004191;
+    display: block;
+    text-align: center;
+}
+
+#menu ul li table td a {
+    border-style: none solid solid none;
+}
+
+#menu ul li a:hover {
+    background: #004191;
+    color: white;
+}
+
+#menu ul li a:link {
+    font-weight: normal;
+    text-decoration: none;
+}
