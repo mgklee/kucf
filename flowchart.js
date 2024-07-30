@@ -1,9 +1,3 @@
-// import initCH   from "./init/initCH.js";
-// import initCS   from "./init/initCS.js";
-// import initEE   from "./init/initEE.js";
-// import initMAS  from "./init/initMAS.js";
-// import initPH   from "./init/initPH.js";
-
 import CH from "./dept/CH.js";
 import CS from "./dept/CS.js";
 import EE from "./dept/EE.js";
@@ -173,7 +167,7 @@ function init() {
             text: dept + course.code + "\n" + course.name,
             fillColor: requiredCourses.includes(course.code) ? "#e6e6e6" : "white",
             startCourseId: course.startCourseId,
-            strokeDashArray: irregularCourses.includes(course.code) ? [8, 8] : null
+            strokeDashArray: irregularCourses.includes(course.code) ? [10, 10] : null
         });
 
         if (course.prereqs) {
@@ -228,15 +222,17 @@ function init() {
             loc: mini.loc,
             text: "MAS" + mini.code
         });
-
-        for (const course of mini.prereqOf) {
-            var linkInfo = course.split(' ');
-            linkDataArray.push({
-                from: mini.code + "m",
-                to: linkInfo[0],
-                fromSpot: linkInfo[1],
-                toSpot: linkInfo[2]
-            });
+        
+        if (mini.prereqOf) {
+            for (const course of mini.prereqOf) {
+                var linkInfo = course.split(' ');
+                linkDataArray.push({
+                    from: mini.code + "m",
+                    to: linkInfo[0],
+                    fromSpot: linkInfo[1],
+                    toSpot: linkInfo[2]
+                });
+            }
         }
 
         if (mini.refOf) {
