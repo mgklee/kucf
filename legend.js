@@ -4,12 +4,11 @@ function init() {
     var myDiagram =
         $(go.Diagram, "myDiagramDiv",
             {
-                allowClipboard: false,
                 allowHorizontalScroll: false,
                 allowSelect: false,
                 allowVerticalScroll: false,
                 allowZoom: false,
-                initialAutoScale: go.Diagram.Uniform,
+                initialAutoScale: go.AutoScale.Uniform,
                 initialContentAlignment: go.Spot.Bottom,
                 isReadOnly: true
             }
@@ -24,9 +23,15 @@ function init() {
             },
             $(go.Shape, "Rectangle",
                 { name: "SHAPE" },
-                new go.Binding("fill", "", function(obj) { return obj.isHighlighted ? "#6dab80" : obj.data.fillColor; }).ofObject(),
-                new go.Binding("stroke", "isHighlighted", function(h) { return h ? "#a6e6a1" : "black"; }).ofObject(),
-                new go.Binding("strokeDashArray", "", function(obj) { return obj.isHighlighted ? null : obj.data.strokeDashArray; }).ofObject()
+                new go.Binding("fill", "",
+                    obj => obj.isHighlighted ? "#1487c8" : obj.data.fillColor
+                ).ofObject(),
+                new go.Binding("stroke", "isHighlighted",
+                    h => h ? "#004191" : "black"
+                ).ofObject(),
+                new go.Binding("strokeDashArray", "",
+                    obj => obj.isHighlighted ? null : obj.data.strokeDashArray
+                ).ofObject()
             ),
             $(go.TextBlock, "Default Text",
                 {
@@ -39,7 +44,9 @@ function init() {
                 },
                 new go.Binding("text", "text"),
                 new go.Binding("alignment", "alignment", go.Spot.parse),
-                new go.Binding("stroke", "isHighlighted", function(h) { return h ? "white" : "black"; }).ofObject(),
+                new go.Binding("stroke","isHighlighted",
+                    h => h ? "white" : "black"
+                ).ofObject()
             )
         );
     
@@ -57,13 +64,19 @@ function init() {
                     isPanelMain: true,
                     strokeWidth: 1.5
                 },
-                new go.Binding("stroke", "isHighlighted", function(h) { return h ? "#6dab80" : "black"; }).ofObject(),
+                new go.Binding("stroke", "isHighlighted",
+                    h => h ? "#004191" : "black"
+                ).ofObject(),
                 new go.Binding("strokeDashArray", "strokeDashArray"),
             ),
             $(go.Shape,     // the arrowhead
                 { toArrow: "Standard" },
-                new go.Binding("stroke", "isHighlighted", function(h) { return h ? "#6dab80" : "black"; }).ofObject(),
-                new go.Binding("fill", "isHighlighted", function(h) { return h ? "#6dab80" : "black"; }).ofObject(),
+                new go.Binding("fill", "isHighlighted",
+                    h => h ? "#004191" : "black"
+                ).ofObject(),
+                new go.Binding("stroke", "isHighlighted",
+                    h => h ? "#004191" : "black"
+                ).ofObject()
             ),
             $(go.TextBlock, "Default Text",
                 {
@@ -73,14 +86,16 @@ function init() {
                     alignment: go.Spot.Center,
                     segmentOffset: new go.Point(0, -10)
                 },
-                new go.Binding("stroke", "isHighlighted", function(h) { return h ? "#6dab80" : "black"; }).ofObject(),
+                new go.Binding("stroke", "isHighlighted",
+                    h => h ? "#004191" : "black"
+                ).ofObject(),
                 new go.Binding("text", "text")
             )
         );
     
-    go.TextBlock.setBaseline(function(textBlock, textHeight) {
-        return textHeight * 0.85;
-    });
+    go.TextBlock.setBaseline(
+        (textBlock, textHeight) => textHeight * 0.85
+    );
 
     var nodeDataArray = [
         { key: "1", loc: "0 0", text: "과목번호\n과목명", alignment: "Left", fillColor: "white" },

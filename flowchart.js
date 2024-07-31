@@ -30,14 +30,16 @@ function init() {
     var myDiagram =
         $(go.Diagram, "myDiagramDiv",
             {
-                allowClipboard: false,
-                allowHorizontalScroll: false,
                 allowSelect: false,
-                allowVerticalScroll: false,
                 allowZoom: false,
-                initialAutoScale: go.Diagram.Uniform,
+                initialAutoScale: go.AutoScale.Uniform,
                 initialContentAlignment: go.Spot.Center,
-                isReadOnly: true
+                isReadOnly: true,
+                "ViewportBoundsChanged": function(e) {
+                    let allowScroll = !e.diagram.viewportBounds.containsRect(e.diagram.documentBounds);
+                    myDiagram.allowHorizontalScroll = allowScroll;
+                    myDiagram.allowVerticalScroll = allowScroll;
+                },
             }
         );
 
@@ -52,19 +54,13 @@ function init() {
             },
             $(go.Shape, "Rectangle",
                 { name: "SHAPE" },
-                new go.Binding(
-                    "fill",
-                    "",
-                    obj => obj.isHighlighted ? "#6dab80" : obj.data.fillColor
+                new go.Binding("fill", "",
+                    obj => obj.isHighlighted ? "#1487c8" : obj.data.fillColor
                 ).ofObject(),
-                new go.Binding(
-                    "stroke",
-                    "isHighlighted",
-                    h => h ? "#a6e6a1" : "black"
+                new go.Binding("stroke", "isHighlighted",
+                    h => h ? "#004191" : "black"
                 ).ofObject(),
-                new go.Binding(
-                    "strokeDashArray",
-                    "",
+                new go.Binding("strokeDashArray", "",
                     obj => obj.isHighlighted ? null : obj.data.strokeDashArray
                 ).ofObject()
             ),
@@ -73,14 +69,12 @@ function init() {
                     name: "TEXT",
                     margin: new go.Margin(2, 8),
                     alignment: go.Spot.Left,
-                    font: "bold 9pt Noto Sans KR",
+                    font: "9pt Noto Sans KR",
                     spacingAbove: 1,
                     spacingBelow: 1
                 },
                 new go.Binding("text", "text"),
-                new go.Binding(
-                    "stroke",
-                    "isHighlighted",
+                new go.Binding("stroke","isHighlighted",
                     h => h ? "white" : "black"
                 ).ofObject()
             )
@@ -104,10 +98,12 @@ function init() {
                 {
                     name: "TEXT",
                     alignment: go.Spot.Center,
-                    font: "bold 9pt Noto Sans KR"
+                    font: "9pt Noto Sans KR"
                 },
                 new go.Binding("text", "text"),
-                new go.Binding("stroke", "isHighlighted", function(h) { return h ? "#6dab80" : "black"; }).ofObject()
+                new go.Binding("stroke", "isHighlighted",
+                    h => h ? "#004191" : "black"
+                ).ofObject()
             )
         );
     
@@ -130,31 +126,25 @@ function init() {
                     isPanelMain: true,
                     strokeWidth: 1.5
                 },
-                new go.Binding(
-                    "stroke",
-                    "isHighlighted",
-                    h => h ? "#6dab80" : "black"
+                new go.Binding("stroke", "isHighlighted",
+                    h => h ? "#004191" : "black"
                 ).ofObject(),
                 new go.Binding("strokeDashArray", "strokeDashArray")
             ),
             $(go.Shape,     // the arrowhead
                 { toArrow: "Standard" },
-                new go.Binding(
-                    "fill",
-                    "isHighlighted",
-                    h => h ? "#6dab80" : "black"
+                new go.Binding("fill", "isHighlighted",
+                    h => h ? "#004191" : "black"
                 ).ofObject(),
-                new go.Binding(
-                    "stroke",
-                    "isHighlighted",
-                    h => h ? "#6dab80" : "black"
+                new go.Binding("stroke", "isHighlighted",
+                    h => h ? "#004191" : "black"
                 ).ofObject()
             )
         );
     
-    go.TextBlock.setBaseline(function(textBlock, textHeight) {
-        return textHeight * 0.85;
-    });
+    go.TextBlock.setBaseline(
+        (textBlock, textHeight) => textHeight * 0.85
+    );
 
     var nodeDataArray = new Array();
     var linkDataArray = new Array();
@@ -220,7 +210,7 @@ function init() {
             category: "mini",
             key: mini.code + "m",
             loc: mini.loc,
-            text: "MAS" + mini.code
+            text: dept + mini.code
         });
         
         if (mini.prereqOf) {
@@ -318,7 +308,8 @@ function unhighlightChildren(obj) {
 }
 
 function link(e, obj) {
-    window.open("about:blank").location.href = "https://otl.kaist.ac.kr/dictionary?startCourseId=" + obj.data.startCourseId;
+    window.open("about:blank").location.href =
+        "https://otl.kaist.ac.kr/dictionary?startCourseId=" + obj.data.startCourseId;
 }
 
 // Call init on page load
