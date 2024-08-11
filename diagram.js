@@ -30,15 +30,13 @@ function init() {
     var myDiagram =
         $(go.Diagram, "myDiagramDiv",
             {
-                allowHorizontalScroll: false,
+                isReadOnly: true,
                 allowSelect: false,
-                allowVerticalScroll: false,
-                allowZoom: true,
-                autoScale: go.AutoScale.Uniform,
                 contentAlignment: go.Spot.Center,
+                minScale: 1,
                 initialAutoScale: go.AutoScale.Uniform,
                 initialContentAlignment: go.Spot.Center,
-                isReadOnly: true
+                "toolManager.mouseWheelBehavior": go.ToolManager.WheelZoom
             }
         );
 
