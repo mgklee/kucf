@@ -33,7 +33,6 @@ function init() {
                 isReadOnly: true,
                 allowSelect: false,
                 contentAlignment: go.Spot.Center,
-                minScale: 1,
                 initialAutoScale: go.AutoScale.Uniform,
                 initialContentAlignment: go.Spot.Center,
                 "toolManager.mouseWheelBehavior": go.ToolManager.WheelZoom
