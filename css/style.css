@@ -68,3 +68,9 @@ a:hover {
     font-weight: normal;
     text-decoration: none;
 }
+
+#myDiagramDiv {
+    width: 100%;
+    max-width: 600px;
+    height: 150px;
+}

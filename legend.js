@@ -8,6 +8,8 @@ function init() {
                 allowSelect: false,
                 allowVerticalScroll: false,
                 allowZoom: false,
+                autoScale: go.AutoScale.Uniform,
+                contentAlignment: go.Spot.Bottom,
                 initialAutoScale: go.AutoScale.Uniform,
                 initialContentAlignment: go.Spot.Bottom,
                 isReadOnly: true

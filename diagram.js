@@ -30,16 +30,15 @@ function init() {
     var myDiagram =
         $(go.Diagram, "myDiagramDiv",
             {
+                allowHorizontalScroll: false,
                 allowSelect: false,
-                allowZoom: false,
+                allowVerticalScroll: false,
+                allowZoom: true,
+                autoScale: go.AutoScale.Uniform,
+                contentAlignment: go.Spot.Center,
                 initialAutoScale: go.AutoScale.Uniform,
                 initialContentAlignment: go.Spot.Center,
-                isReadOnly: true,
-                "ViewportBoundsChanged": function(e) {
-                    let allowScroll = !e.diagram.viewportBounds.containsRect(e.diagram.documentBounds);
-                    myDiagram.allowHorizontalScroll = allowScroll;
-                    myDiagram.allowVerticalScroll = allowScroll;
-                },
+                isReadOnly: true
             }
         );
 
