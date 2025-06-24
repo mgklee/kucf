@@ -22,8 +22,8 @@ const courses = [
     { code: "321", row: 4, column: 3, name: "미분기하학개론", startCourseId: "1498", prereqs: ["102", "109"], refs: ["241 Left Top"] },
     { code: "331", row: 4, column: 4, name: "위상수학", startCourseId: "104", refs: ["241 Left Top"] },
     { code: "341", row: 4, column: 5, name: "복소변수함수론", startCourseId: "105", prereqs: ["241"] },
-    { code: "350", row: 4, column: 6, name: "기초확률론", startCourseId: "128", refs: ["242", "250"] },
-    { code: "355", row: 4, column: 7, name: "수리통계학", startCourseId: "1492", refs: ["250"] },
+    { code: "350", row: 4, column: 6, name: "기초확률론", startCourseId: "128", prereqs: ["250"], refs: ["242"] },
+    { code: "355", row: 4, column: 7, name: "수리통계학", startCourseId: "1492", prereqs: ["250"] },
     { code: "364", row: 6, column: 7, name: "행렬계산과 응용", startCourseId: "8312" },
     { code: "365", row: 4, column: 8, name: "수치해석학개론", startCourseId: "129" },
     { code: "374", row: 6, column: 8, name: "최적화이론", startCourseId: "1493" },
@@ -33,8 +33,8 @@ const courses = [
     { code: "430", row: 6, column: 4, name: "조합적 위상수학", startCourseId: "1495", prereqs: ["331"] },
     { code: "435", row: 7, column: 4, name: "행렬군론", startCourseId: "120", prereqs: ["212 Right Left", "311 Right Left", "331 Bottom Left"], refs: ["430"] },
     { code: "440", row: 6, column: 5, name: "편미분방정식개론", startCourseId: "110", prereqs: ["242 Left Right"] },
-    { code: "441", row: 6, column: 6, name: "르베그적분론", startCourseId: "1496", prereqs: ["242 Left Left"] },
-    { code: "442", row: 7, column: 5, name: "푸리에 해석과 응용", startCourseId: "3914", refs: ["241 Left Left"] },
+    { code: "441", row: 6, column: 6, name: "르베그적분론", startCourseId: "1496", prereqs: ["242 Left Left"], refs: ["350"] },
+    { code: "442", row: 7, column: 5, name: "푸리에 해석과 응용", startCourseId: "3914", refs: ["242 Left Right"] },
     { code: "443", row: 7, column: 6, name: "상미분방정식과 동역학계", startCourseId: "135" },
     { code: "464", row: 7, column: 7, name: "수리역학", startCourseId: "1499" },
     { code: "456", row: 5, column: 7, name: "컴퓨터 통계방법론", startCourseId: "3849", refs: ["355"] },
@@ -44,7 +44,7 @@ const courses = [
 ];
 
 const miniNodes = [
-    { code: "109", loc: "1320 523", prereqOf: ["364 Bottom Top", "370 Right Left", "456 Left Right"], refOf: ["365 Top Bottom", "374 Bottom Top"] },
+    { code: "109", loc: "1320 523", prereqOf: ["355 Left Right", "364 Left Right", "370 Right Left", "456 Left Right"], refOf: ["365 Top Bottom", "374 Bottom Top"] },
     { code: "202", loc: "840 523", refOf: ["341 Top Bottom", "440 Bottom Top"] }
 ];
 
