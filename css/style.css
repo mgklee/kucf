@@ -1,21 +1,43 @@
-body {
-    margin: 5% 10%;
+:root {
+    --chart-background: #fff;
+    --chart-text: #1c2630;
+    --control-surface: rgb(255 255 255 / 96%);
+    --control-border: #d7e0ea;
+    --control-accent: #004191;
+    --link-color: #152b44;
+    color: var(--chart-text);
+    background: var(--chart-background);
     font-family: "Noto Sans KR", sans-serif;
+    line-height: 1.65;
+    --kaist-blue: #004191;
+    color-scheme: light;
 }
 
-h1 {
-    color: #004191;
-    font-size: 2.5em;
-    height: 1.25em;
+:root[data-theme="dark"] {
+    --chart-background: #101720;
+    --chart-text: #e5edf6;
+    --control-surface: rgb(28 40 55 / 96%);
+    --control-border: #3c5067;
+    --control-accent: #96cfff;
+    --kaist-blue: #96cfff;
+    --link-color: #96cfff;
+    color-scheme: dark;
 }
 
-h1 img {
-    height: 100%;
-    vertical-align: text-bottom;
+* {
+    box-sizing: border-box;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+body {
+    margin: 0;
 }
 
 a:link, a:visited {
-    color: black;
+    color: var(--link-color);
     font-weight: bold;
     text-decoration: none;
 }
@@ -24,53 +46,226 @@ a:hover {
     text-decoration: underline;
 }
 
-#menu {
-    width: 100%;
-    height: 75px;
-    display: table;
+a:focus-visible, button:focus-visible, select:focus-visible {
+    outline: 3px solid #1487c8;
+    outline-offset: 3px;
 }
 
-#menu ul {
-    list-style: none;
-    margin: 0 auto;
+h1, h2, h3 {
+    line-height: 1.35;
+}
+
+h1 {
+    color: var(--kaist-blue);
+}
+
+.home-page {
+    max-width: 1320px;
+    margin: 6rem auto 4rem;
+    padding: 0 clamp(1rem, 5vw, 5rem);
+}
+
+.home-page h1 {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .4em;
+    margin: 0 0 .5em;
+    font-size: clamp(1.6rem, 3vw, 2.5rem);
+}
+
+.home-page h1 a {
+    display: flex;
+    flex-shrink: 0;
+}
+
+.home-page h1 img {
+    width: auto;
+    height: 1.25em;
+    max-width: 100%;
+}
+
+:root[data-theme="dark"] .home-page h1 img {
+    filter: brightness(0) invert(1);
+}
+
+.home-page hr {
+    border: 0;
+    border-top: 1px solid var(--control-border);
+}
+
+.home-page > ul:not(.menu) {
+    padding-left: 1.4rem;
+}
+
+.home-page > ul:not(.menu) li + li {
+    margin-top: .4rem;
+}
+
+.home-page h2 {
+    margin-top: 2rem;
+}
+
+.menu {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
+    gap: 1rem;
+    max-width: 1000px;
+    margin: 0 0 2rem;
     padding: 0;
+    list-style: none;
 }
 
-#menu ul li table {
-    border-collapse: collapse;
-    float: left;
-    width: 24%;
-    min-width: 250px;
-    height: 100%;
-    line-height: 50px;
-    margin-right: 1%;
+.department-card {
+    min-width: 0;
+    display: grid;
+    grid-template-rows: 1fr auto;
 }
 
-#menu ul li a {
-    border-width: thin;
-    border-style: none none solid none;
-    border-color: #004191;
-    color: #004191;
+.department-card a {
     display: block;
+    padding: .7rem .5rem;
+    color: var(--kaist-blue);
     text-align: center;
-}
-
-#menu ul li table td a {
-    border-style: none solid solid none;
-}
-
-#menu ul li a:hover {
-    background: #004191;
-    color: white;
-}
-
-#menu ul li a:link {
-    font-weight: normal;
     text-decoration: none;
 }
 
-#myDiagramDiv {
+.department-card a:hover {
+    background: var(--kaist-blue);
+    color: var(--chart-background);
+}
+
+.department-resources {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid var(--kaist-blue);
+}
+
+.department-resources a {
+    font-weight: normal;
+}
+
+.department-resources a + a {
+    border-left: 1px solid var(--kaist-blue);
+}
+
+.home-page #myDiagramDiv {
     width: 100%;
-    max-width: 600px;
-    height: 150px;
+    max-width: 720px;
+    height: 170px;
+}
+
+.flowchart-page {
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    color: var(--chart-text);
+    background: var(--chart-background);
+}
+
+#chart-toolbar, #home-toolbar {
+    position: fixed;
+    z-index: 10;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    display: flex;
+    gap: 4px;
+    padding: 5px;
+    border: 1px solid var(--control-border);
+    border-radius: 14px;
+    background: var(--control-surface);
+    box-shadow: 0 3px 16px rgb(0 0 0 / 8%);
+    backdrop-filter: blur(8px);
+}
+
+.icon-button {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    border: 0;
+    border-radius: 9px;
+    color: var(--chart-text);
+    background: transparent;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+
+.icon-button:hover {
+    color: var(--control-accent);
+    background: transparent;
+}
+
+.icon-button:disabled {
+    opacity: .4;
+    cursor: default;
+}
+
+.icon-button svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    pointer-events: none;
+}
+
+.icon-button .language-glyph {
+    fill: currentColor;
+    stroke: none;
+    font: 700 18px "Noto Sans KR", sans-serif;
+}
+
+.icon-button .theme-moon,
+[data-theme="dark"] .icon-button .theme-sun {
+    display: none;
+}
+
+[data-theme="dark"] .icon-button .theme-moon {
+    display: block;
+}
+
+.diagram-status {
+    margin: .7rem 1rem;
+    padding: .65rem .85rem;
+    border: 1px solid var(--control-border);
+    background: var(--control-surface);
+    overflow-wrap: anywhere;
+}
+
+.flowchart-status {
+    position: fixed;
+    z-index: 5;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: max-content;
+    max-width: calc(100% - 2rem);
+    margin: 0;
+    border-color: var(--control-border);
+    border-radius: 8px;
+    background: var(--control-surface);
+}
+
+.flowchart-status a {
+    color: var(--control-accent);
+}
+
+.flowchart-page #myDiagramDiv {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: var(--chart-background);
+}
+
+@media (max-width: 540px) {
+    .home-page {
+        margin-top: 6rem;
+        margin-bottom: 2rem;
+    }
 }
